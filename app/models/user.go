@@ -2,6 +2,7 @@ package models
 
 import "fmt"
 
-func init() {
+func NewUser() bool {
 	fmt.Println(DB)
+	return true
 }

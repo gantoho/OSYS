@@ -13,4 +13,13 @@ func InitRouter() {
 
 	router.GET("/", logic.Index)
 
+	user := router.Group("/user")
+	{
+		user.GET("/new", logic.NewUser)
+	}
+
+	err := router.Run(":8080")
+	if err != nil {
+		panic(err)
+	}
 }
