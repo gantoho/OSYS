@@ -1,7 +1,7 @@
 package main
 
-import "github.com/gantoho/osys/app"
+import "github.com/gantoho/osys/internal"
 
 func main() {
-	app.Start()
+	internal.Start()
 }

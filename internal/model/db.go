@@ -1,4 +1,4 @@
-package models
+package model
 
 import (
 	"fmt"
@@ -22,6 +22,7 @@ func InitDB() {
 		panic("连接数据库失败, error=" + err.Error())
 	}
 	DB = db
+	defer initDB()
 }
 
 type config struct {
@@ -39,4 +40,11 @@ func readLocalPassword() string {
 		panic(err)
 	}
 	return conf.Password
+}
+
+func initDB() {
+	err := DB.AutoMigrate(&User{})
+	if err != nil {
+		panic("auto migrate err: " + err.Error())
+	}
 }

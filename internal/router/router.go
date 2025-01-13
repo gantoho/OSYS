@@ -1,8 +1,8 @@
 package router
 
 import (
-	"github.com/gantoho/osys/app/logic"
-	"github.com/gantoho/osys/app/middleware"
+	"github.com/gantoho/osys/internal/logic"
+	"github.com/gantoho/osys/internal/router/middleware"
 	"github.com/gin-gonic/gin"
 )
 
@@ -15,7 +15,8 @@ func InitRouter() {
 
 	user := router.Group("/user")
 	{
-		user.GET("/new", logic.NewUser)
+		user.POST("/register", logic.Register)
+		user.POST("/login", logic.Login)
 	}
 
 	err := router.Run(":8080")
