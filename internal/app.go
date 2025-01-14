@@ -1,11 +1,11 @@
 package internal
 
 import (
-	"github.com/gantoho/osys/internal/model"
-	"github.com/gantoho/osys/internal/router"
+	"github.com/gantoho/osys/internal/models"
+	"github.com/gantoho/osys/internal/routers"
 )
 
 func Start() {
-	model.InitDB()
-	router.InitRouter()
+	models.InitDB()
+	routers.InitRouter()
 }

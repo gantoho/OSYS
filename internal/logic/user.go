@@ -2,23 +2,23 @@ package logic
 
 import (
 	"fmt"
-	"github.com/gantoho/osys/internal/model"
+	"github.com/gantoho/osys/internal/models"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
 func Register(c *gin.Context) {
-	var user model.User
+	var user models.User
 	err := c.ShouldBind(&user)
 	if err != nil {
 		panic("logic user register ShouldBind err")
 	}
 
-	err = model.DB.Create(&user).Error
+	err = models.DB.Create(&user).Error
 	if err != nil {
 		panic("logic user register gorm create err")
 	}
-	
+
 	c.JSON(http.StatusOK, gin.H{
 		"code": http.StatusOK,
 		"msg":  "register success",
@@ -38,8 +38,8 @@ func Login(c *gin.Context) {
 	}
 	fmt.Printf("1 %+v", login_user)
 
-	var user model.User
-	err = model.DB.Where("username = ?", login_user.Username).First(&user).Error
+	var user models.User
+	err = models.DB.Where("username = ?", login_user.Username).First(&user).Error
 	fmt.Printf("2 %+v", user)
 	if err != nil {
 		panic("username undefined")
