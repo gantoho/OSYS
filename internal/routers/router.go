@@ -6,20 +6,21 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func InitRouter() {
+func InitRouters() {
 	router := gin.Default()
 	//	中间件
 	router.Use(middleware.Headers)
 
 	router.GET("/", logic.Index)
 
-	user := router.Group("/user")
-	{
-		user.POST("/register", logic.Register)
-		user.POST("/login", logic.Login)
-	}
+	initUser(router)
 
-	err := router.Run(":8080")
+	api := router.Group("/api")
+	initLogin(api)
+
+	initOrder(router)
+
+	err := router.Run(":7892")
 	if err != nil {
 		panic(err)
 	}

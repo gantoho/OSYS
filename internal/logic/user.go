@@ -14,6 +14,8 @@ func Register(c *gin.Context) {
 		panic("logic user register ShouldBind err")
 	}
 
+	fmt.Printf("%+v", user)
+
 	err = models.DB.Create(&user).Error
 	if err != nil {
 		panic("logic user register gorm create err")

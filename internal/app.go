@@ -7,5 +7,5 @@ import (
 
 func Start() {
 	models.InitDB()
-	routers.InitRouter()
+	routers.InitRouters()
 }
