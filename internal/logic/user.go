@@ -3,8 +3,10 @@ package logic
 import (
 	"fmt"
 	"github.com/gantoho/osys/internal/models"
-	"github.com/gin-gonic/gin"
 	"net/http"
+	"strconv"
+
+	"github.com/gin-gonic/gin"
 )
 
 func Register(c *gin.Context) {
@@ -13,8 +15,6 @@ func Register(c *gin.Context) {
 	if err != nil {
 		panic("logic user register ShouldBind err")
 	}
-
-	fmt.Printf("%+v", user)
 
 	err = models.DB.Create(&user).Error
 	if err != nil {
@@ -38,7 +38,6 @@ func Login(c *gin.Context) {
 	if err != nil {
 		panic("logic user login ShouldBind err")
 	}
-	fmt.Printf("1 %+v", login_user)
 
 	var user models.User
 	err = models.DB.Where("username = ?", login_user.Username).First(&user).Error
@@ -52,5 +51,31 @@ func Login(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"code": http.StatusOK,
 		"msg":  "login success",
+	})
+}
+
+func Edit(c *gin.Context) {
+	var edit_user models.User
+	err := c.ShouldBind(&edit_user)
+	if err != nil {
+		panic("logic user edit ShouldBind err")
+	}
+
+	userID, _ := strconv.Atoi(c.Param("id"))
+	edit_user.ID = uint(userID)
+
+	var user models.User
+
+	models.DB.Find(&user, "id = ?", userID).Updates(
+		map[string]interface{}{
+			"username": edit_user.Username,
+			"password": edit_user.Password,
+			"phone":    edit_user.Phone,
+		},
+	)
+
+	c.JSON(http.StatusOK, gin.H{
+		"code": http.StatusOK,
+		"msg":  "edit success",
 	})
 }

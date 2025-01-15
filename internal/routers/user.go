@@ -13,7 +13,7 @@ func initUser(r *gin.Engine) {
 		//新增用户
 		v1.POST("/user", logic.Register)
 		//编辑用户
-		v1.PUT("/user/:id")
+		v1.PUT("/user/:id", logic.Edit)
 		//删除用户
 		v1.DELETE("/user/:id")
 	}

@@ -2,7 +2,7 @@ package routers
 
 import (
 	"github.com/gantoho/osys/internal/logic"
-	"github.com/gantoho/osys/internal/routers/middleware"
+	"github.com/gantoho/osys/internal/middleware"
 	"github.com/gin-gonic/gin"
 )
 
