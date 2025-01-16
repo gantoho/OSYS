@@ -87,11 +87,13 @@ func Register(c *gin.Context) {
 	}
 
 	err = models.DB.Create(&models.User{
-		Username:    rUser.Username,
-		Password:    tools.Encrypt(rUser.Password),
-		Email:       rUser.Email,
-		CreatedTime: time.Now(),
-		UpdatedTime: time.Now(),
+		Username: rUser.Username,
+		Password: tools.Encrypt(rUser.Password),
+		Email:    rUser.Email,
+		Model: models.Model{
+			CreatedTime: time.Now(),
+			UpdatedTime: time.Now(),
+		},
 	}).Error
 	if err != nil {
 		c.JSON(http.StatusBadRequest, tools.ECode{
