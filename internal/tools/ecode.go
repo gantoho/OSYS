@@ -1,3 +1,5 @@
+// 返回内容结构
+
 package tools
 
 import "fmt"

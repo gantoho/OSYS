@@ -11,14 +11,14 @@ func InitRouters() {
 	//	中间件
 	router.Use(middleware.Headers)
 
-	router.GET("/", logic.Index)
-
-	initUser(router)
-
 	api := router.Group("/api")
+	{
+		api.GET("/", logic.Index)
+	}
+	initUser(api)
 	initLogin(api)
-
-	initOrder(router)
+	initOrder(api)
+	initToken(api)
 
 	err := router.Run(":7892")
 	if err != nil {

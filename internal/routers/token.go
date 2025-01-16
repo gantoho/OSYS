@@ -5,9 +5,9 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func initLogin(g *gin.RouterGroup) {
+func initToken(g *gin.RouterGroup) {
 	v1 := g.Group("/v1")
 	{
-		v1.POST("/login", logic.Login)
+		v1.GET("/token", logic.GetUserIDByToken)
 	}
 }

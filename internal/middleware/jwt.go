@@ -5,12 +5,12 @@ import (
 	"net/http"
 
 	"github.com/dgrijalva/jwt-go"
-	"github.com/gin-gonic/gin"
 	"github.com/gantoho/osys/internal/tools"
+	"github.com/gin-gonic/gin"
 )
 
-type MyClaims struct {
-	UserID int64 `json:"user-id"`
+type Claims struct {
+	UserID int64 `json:"userid"`
 	jwt.StandardClaims
 }
 
@@ -62,14 +62,14 @@ func NewJWT() *JWT {
 }
 
 // 创建一个token
-func (j *JWT) CreateToken(claims MyClaims) (string, error) {
+func (j *JWT) CreateToken(claims Claims) (string, error) {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	return token.SignedString(j.SigningKey)
 }
 
 // 解析token
-func (j *JWT) ParseToken(tokenString string) (*MyClaims, error) {
-	token, err := jwt.ParseWithClaims(tokenString, &MyClaims{}, func(token *jwt.Token) (interface{}, error) {
+func (j *JWT) ParseToken(tokenString string) (*Claims, error) {
+	token, err := jwt.ParseWithClaims(tokenString, &Claims{}, func(token *jwt.Token) (interface{}, error) {
 		return j.SigningKey, nil // 替换为实际密钥
 	})
 
@@ -84,7 +84,7 @@ func (j *JWT) ParseToken(tokenString string) (*MyClaims, error) {
 		return nil, err
 	}
 
-	if claims, ok := token.Claims.(*MyClaims); ok && token.Valid {
+	if claims, ok := token.Claims.(*Claims); ok && token.Valid {
 		return claims, nil
 	}
 	return nil, errors.New("token 无效")
