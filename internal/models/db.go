@@ -45,14 +45,18 @@ func readLocalPassword() string {
 func initDB() {
 	err := DB.AutoMigrate(&User{})
 	if err != nil {
-		panic("user auto migrate err: " + err.Error())
+		panic("User auto migrate err: " + err.Error())
 	}
 	err = DB.AutoMigrate(&Order{})
 	if err != nil {
-		panic("order auto migrate err: " + err.Error())
+		panic("Order auto migrate err: " + err.Error())
 	}
-	err = DB.AutoMigrate(&Goods{})
+	err = DB.AutoMigrate(&Product{})
 	if err != nil {
-		panic("goods auto migrate err: " + err.Error())
+		panic("Product auto migrate err: " + err.Error())
+	}
+	err = DB.AutoMigrate(&Order2product{})
+	if err != nil {
+		panic("Order2product auto migrate err: " + err.Error())
 	}
 }
