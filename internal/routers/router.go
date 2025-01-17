@@ -15,10 +15,12 @@ func InitRouters() {
 	{
 		api.GET("/", logic.Index)
 	}
-	initUser(api)
+	initRegister(api)
 	initLogin(api)
+	initUser(api)
 	initOrder(api)
 	initToken(api)
+	initProduct(api)
 
 	err := router.Run(":7892")
 	if err != nil {

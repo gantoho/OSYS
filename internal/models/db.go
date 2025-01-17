@@ -55,8 +55,4 @@ func initDB() {
 	if err != nil {
 		panic("Product auto migrate err: " + err.Error())
 	}
-	err = DB.AutoMigrate(&Order2product{})
-	if err != nil {
-		panic("Order2product auto migrate err: " + err.Error())
-	}
 }

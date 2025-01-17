@@ -7,9 +7,3 @@ type Model struct {
 	CreatedTime time.Time `json:"created_time" gorm:"created_time"`
 	UpdatedTime time.Time `json:"updated_time" gorm:"updated_time"`
 }
-
-type Order2product struct {
-	ID        int64 ` json:"id" form:"id" gorm:"primary_key;auto_increment"`
-	OrderID   int64
-	ProductID int64
-}
