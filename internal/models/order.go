@@ -7,5 +7,5 @@ type Order struct {
 	Products []Product `gorm:"many2many:order2product"`
 
 	UserID int64
-	User   User `gorm:"foreignKey:UserID;constraint:OnDelete:CASCADE;"`
+	User   User `gorm:"foreignKey:UserID;constraint:OnDelete:CASCADE;OnUpdate:CASCADE;"`
 }
