@@ -162,30 +162,8 @@ func Login(c *gin.Context) {
 	})
 }
 
-func Edit(c *gin.Context) {
-	//var edit_user models.User
-	//err := c.ShouldBind(&edit_user)
-	//if err != nil {
-	//	panic("logic user edit ShouldBind err")
-	//}
-	//
-	//userID, _ := strconv.Atoi(c.Param("id"))
-	//edit_user.ID = uint(userID)
-	//
-	//var user models.User
-	//
-	//models.DB.Find(&user, "id = ?", userID).Updates(
-	//	map[string]interface{}{
-	//		"username": edit_user.Username,
-	//		"password": edit_user.Password,
-	//		"phone":    edit_user.Phone,
-	//	},
-	//)
-	//
-	//c.JSON(http.StatusOK, gin.H{
-	//	"code": http.StatusOK,
-	//	"msg":  "edit success",
-	//})
+func EditUser(c *gin.Context) {
+
 }
 
 func GetUserByID(c *gin.Context) {
@@ -204,5 +182,23 @@ func GetUserByID(c *gin.Context) {
 		Code:    http.StatusOK,
 		Message: "success",
 		Data:    gin.H{"user": user},
+	})
+}
+
+func DelUser(c *gin.Context) {
+	id := c.Param("id")
+	var user models.User
+	err := models.DB.Where("id = ?", id).Delete(&user).Error
+	if err != nil {
+		c.JSON(http.StatusBadRequest, tools.ECode{
+			Code:    http.StatusBadRequest,
+			Message: "gorm err: " + err.Error(),
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, tools.ECode{
+		Code:    http.StatusOK,
+		Message: "success",
 	})
 }

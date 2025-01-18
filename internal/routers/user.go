@@ -13,8 +13,8 @@ func initUser(g *gin.RouterGroup) {
 		// 根据id获取用户信息
 		v1.GET("/user/:id", logic.GetUserByID)
 		// 编辑用户
-		v1.PUT("/user/:id", logic.Edit)
+		v1.PUT("/user/:id", logic.EditUser)
 		// 删除用户
-		v1.DELETE("/user/:id")
+		v1.DELETE("/user/:id", logic.DelUser)
 	}
 }
