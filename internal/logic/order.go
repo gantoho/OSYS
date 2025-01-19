@@ -41,6 +41,7 @@ func GetOrderByID(c *gin.Context) {
 type AOrderParams struct {
 	UserID     int64 `json:"user_id"`
 	ProductsID []int `json:"products_id"`
+	ShopID     int64 `json:"shop_id"`
 }
 
 func AddOrder(c *gin.Context) {
@@ -71,6 +72,7 @@ func AddOrder(c *gin.Context) {
 		},
 		OrderNo:  strconv.FormatInt(time.Now().Unix(), 10),
 		Products: products,
+		ShopID:   aOrderParams.ShopID,
 	}
 
 	err = models.DB.Create(&order).Error

@@ -19,6 +19,6 @@ func initShop(g *gin.RouterGroup) {
 		// 新增店铺
 		v1.POST("/shop", logic.AddShop)
 		// 注销店铺
-		v1.DELETE("/shop/:id")
+		v1.DELETE("/shop/:id", logic.DelShop)
 	}
 }

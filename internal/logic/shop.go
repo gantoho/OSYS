@@ -114,3 +114,19 @@ func AddShop(c *gin.Context) {
 		Data:    shop,
 	})
 }
+
+func DelShop(c *gin.Context) {
+	id := c.Param("id")
+	err := models.DB.Where("id = ?", id).Delete(&models.Shop{}).Error
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, tools.ECode{
+			Code:    http.StatusInternalServerError,
+			Message: err.Error(),
+		})
+		return
+	}
+	c.JSON(http.StatusOK, tools.ECode{
+		Code:    http.StatusOK,
+		Message: "success",
+	})
+}

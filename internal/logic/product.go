@@ -1,6 +1,7 @@
 package logic
 
 import (
+	"fmt"
 	"github.com/gantoho/osys/internal/models"
 	"github.com/gantoho/osys/internal/tools"
 	"github.com/gin-gonic/gin"
@@ -65,6 +66,7 @@ func GetProduct(c *gin.Context) {
 type AProduct struct {
 	ProductNo   string `json:"product_no"`
 	ProductName string `form:"product_name" json:"product_name" binding:"required"`
+	ShopID      int64  `json:"shop_id"`
 }
 
 func AddProduct(c *gin.Context) {
@@ -79,7 +81,7 @@ func AddProduct(c *gin.Context) {
 	}
 	uuidV4 := uuid.New()
 	aProduct.ProductNo = uuidV4.String()
-
+	fmt.Printf("%+v \n", aProduct)
 	err = models.DB.Create(&models.Product{
 		ProductNo:   aProduct.ProductNo,
 		ProductName: aProduct.ProductName,
@@ -87,6 +89,7 @@ func AddProduct(c *gin.Context) {
 			CreatedTime: time.Now(),
 			UpdatedTime: time.Now(),
 		},
+		ShopID: aProduct.ShopID,
 	}).Error
 
 	if err != nil {
