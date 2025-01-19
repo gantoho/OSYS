@@ -1,6 +1,10 @@
 package tools
 
-import "regexp"
+import (
+	"math/rand"
+	"regexp"
+	"time"
+)
 
 func CheckPassword(password string) bool {
 	// 检查长度是否在6到20个字符之间
@@ -34,4 +38,9 @@ func CheckPassword(password string) bool {
 	}
 
 	return true
+}
+
+func Random() int {
+	r := rand.New(rand.NewSource(time.Now().UnixNano()))
+	return r.Intn(10) + 1
 }

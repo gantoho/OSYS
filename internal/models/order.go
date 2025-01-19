@@ -8,4 +8,11 @@ type Order struct {
 
 	UserID int64
 	User   User `gorm:"foreignKey:UserID;constraint:OnDelete:CASCADE;OnUpdate:CASCADE;"`
+
+	ShopID int64
+	Shop   Shop `gorm:"foreignKey:ShopID;constraint:OnDelete:CASCADE;"`
+}
+
+func (Order) TableName() string {
+	return "order"
 }

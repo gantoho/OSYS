@@ -55,4 +55,8 @@ func initDB() {
 	if err != nil {
 		panic("Product auto migrate err: " + err.Error())
 	}
+	err = DB.AutoMigrate(&Shop{})
+	if err != nil {
+		panic("Shop auto migrate err: " + err.Error())
+	}
 }
