@@ -115,6 +115,35 @@ func AddShop(c *gin.Context) {
 	})
 }
 
+func EditShop(c *gin.Context) {
+	id := c.Param("id")
+	var shop models.Shop
+	err := models.DB.Where("id = ?", id).First(&shop).Error
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, tools.ECode{
+			Code:    http.StatusInternalServerError,
+			Message: err.Error(),
+		})
+		return
+	}
+	blackboardNew := c.PostForm("blackboard")
+	shop.Blackboard = blackboardNew
+	shop.UpdatedTime = time.Now()
+	err = models.DB.Save(&shop).Error
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, tools.ECode{
+			Code:    http.StatusInternalServerError,
+			Message: err.Error(),
+		})
+		return
+	}
+	c.JSON(http.StatusOK, tools.ECode{
+		Code:    http.StatusOK,
+		Message: "success",
+		Data:    shop,
+	})
+}
+
 func DelShop(c *gin.Context) {
 	id := c.Param("id")
 	err := models.DB.Where("id = ?", id).Delete(&models.Shop{}).Error

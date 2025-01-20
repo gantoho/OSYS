@@ -18,6 +18,8 @@ func initShop(g *gin.RouterGroup) {
 		v1.GET("/shops/random/:num", logic.GetRandomShops)
 		// 新增店铺
 		v1.POST("/shop", logic.AddShop)
+		// 编辑店铺
+		v1.PUT("/shop/:id", logic.EditShop)
 		// 注销店铺
 		v1.DELETE("/shop/:id", logic.DelShop)
 	}
