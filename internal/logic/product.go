@@ -66,7 +66,7 @@ func GetProduct(c *gin.Context) {
 type AProduct struct {
 	ProductNo   string `json:"product_no"`
 	ProductName string `form:"product_name" json:"product_name" binding:"required"`
-	ShopID      int64  `json:"shop_id"`
+	ShopID      int64  `json:"shop_id" form:"shop_id" binding:"required"`
 }
 
 func AddProduct(c *gin.Context) {
