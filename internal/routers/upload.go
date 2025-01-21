@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"os"
 )
 
 func initUpload(g *gin.RouterGroup) {
@@ -47,6 +48,22 @@ func initUpload(g *gin.RouterGroup) {
 				"message": "file uploaded successfully",
 				"file":    file.Filename,
 			})
+		})
+		v1.GET("/f/:filename", func(c *gin.Context) {
+			// 获取 URL 中的文件名参数
+			filename := c.Param("filename")
+
+			// 指定文件所在的目录
+			filepath := "./uploads/" + filename
+
+			// 检查文件是否存在
+			if _, err := os.Stat(filepath); os.IsNotExist(err) {
+				c.JSON(http.StatusNotFound, gin.H{"error": "File not found"})
+				return
+			}
+
+			// 发送文件给客户端
+			c.File(filepath)
 		})
 	}
 }
