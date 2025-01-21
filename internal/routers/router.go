@@ -22,6 +22,7 @@ func InitRouters() {
 	initToken(api)
 	initProduct(api)
 	initShop(api)
+	initUpload(api)
 
 	err := router.Run(":7892")
 	if err != nil {
