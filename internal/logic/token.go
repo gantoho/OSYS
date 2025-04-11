@@ -27,7 +27,8 @@ func GetUserIDByToken(c *gin.Context) {
 		Code:    http.StatusOK,
 		Message: "success",
 		Data: gin.H{
-			"userId": ret.UserID,
+			"userId":   ret.UserID,
+			"userName": ret.Issuer,
 		},
 	})
 }
